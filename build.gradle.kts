@@ -65,7 +65,7 @@ subprojects {
     implementation("com.squareup.moshi:moshi:1.13.0")
     implementation("org.jetbrains:annotations:22.0.0")
     val testImplementation by configurations
-    testImplementation(platform("org.junit:junit-bom:5.8.1"))
+    testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     val kotestVersion = "5.0.1"
@@ -77,7 +77,7 @@ subprojects {
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
       kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
       }
     }
     test.get().useJUnitPlatform()
@@ -116,8 +116,8 @@ subprojects {
           }
         }
         scm {
-          connection.set("scm:git:https://git.soma.salesforce.com/ccspayments/loki")
-          developerConnection.set("scm:git:git@git.soma.salesforce.com:ccspayments/loki.git")
+          connection.set("scm:git:https://git.soma.salesforce.com/ccspayments/Loki")
+          developerConnection.set("scm:git:git@git.soma.salesforce.com:ccspayments/Loki.git")
           url.set("https://git.soma.salesforce.com/ccspayments/loki")
         }
       }
