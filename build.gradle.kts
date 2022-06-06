@@ -1,20 +1,19 @@
+import com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
 import com.diffplug.spotless.extra.wtp.EclipseWtpFormatterStep.XML
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   kotlin("jvm")
   `maven-publish`
-  id("io.gitlab.arturbosch.detekt") version "1.19.0"
-  id("com.adarshr.test-logger") version "3.1.0"
-  id("com.diffplug.spotless") version "6.0.1"
+  id("io.gitlab.arturbosch.detekt") version "1.20.0"
+  id("com.adarshr.test-logger") version "3.2.0"
+  id("com.diffplug.spotless") version "6.4.2"
 }
 
 allprojects {
   group = "com.salesforce.ccspayments"
-  version = "0.2-SNAPSHOT"
-  repositories {
-    mavenCentral()
-  }
+  version = "0.2.1"
   apply(plugin = "com.diffplug.spotless")
   spotless {
     kotlin {
@@ -50,6 +49,10 @@ allprojects {
   }
 }
 
+repositories {
+  mavenCentral()
+}
+
 subprojects {
   apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "maven-publish")
@@ -60,28 +63,26 @@ subprojects {
     implementation(platform("org.springframework:spring-framework-bom:5.3.13"))
     implementation("org.springframework:spring-context")
     implementation("org.springframework:spring-test")
-    implementation(platform("io.arrow-kt:arrow-stack:1.0.1"))
-    implementation("io.arrow-kt:arrow-core")
     implementation("com.squareup.moshi:moshi:1.13.0")
     implementation("org.jetbrains:annotations:22.0.0")
     val testImplementation by configurations
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    val kotestVersion = "5.0.1"
+    val kotestVersion = "5.3.0"
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
   }
 
   tasks {
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    withType<KotlinCompile> {
       kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
         freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
       }
     }
     test.get().useJUnitPlatform()
-    testlogger.theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    testlogger.theme = MOCHA
     withType<PublishToMavenRepository>().configureEach {
       doLast {
         logger.lifecycle("Successfully uploaded ${publication.groupId}:${publication.artifactId}:${publication.version} to ${repository.name}")
