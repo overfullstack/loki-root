@@ -8,18 +8,20 @@ plugins {
   `maven-publish`
   id("io.gitlab.arturbosch.detekt") version "1.20.0"
   id("com.adarshr.test-logger") version "3.2.0"
-  id("com.diffplug.spotless") version "6.4.2"
+  id("com.diffplug.spotless") version "6.7.2"
 }
 
 allprojects {
   group = "com.salesforce.ccspayments"
-  version = "0.2.1"
+  version = "0.2.2-SNAPSHOT"
   apply(plugin = "com.diffplug.spotless")
   spotless {
     kotlin {
       target("src/main/java/**/*.kt", "src/test/java/**/*.kt")
       targetExclude("$buildDir/generated/**/*.*")
-      ktlint().userData(mapOf("indent_size" to "2", "continuation_indent_size" to "2"))
+      ktlint()
+        .setUseExperimental(true)
+        .editorConfigOverride(mapOf("indent_size" to "2", "continuation_indent_size" to "2"))
     }
     kotlinGradle {
       target("*.gradle.kts")
@@ -78,8 +80,12 @@ subprojects {
     withType<KotlinCompile> {
       kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
+        freeCompilerArgs = listOf("-Xuse-k2", "-Xjdk-release=11")
       }
+    }
+    compileTestJava {
+      sourceCompatibility = JavaVersion.VERSION_17.toString()
+      targetCompatibility = JavaVersion.VERSION_17.toString()
     }
     test.get().useJUnitPlatform()
     testlogger.theme = MOCHA
@@ -91,6 +97,25 @@ subprojects {
     withType<PublishToMavenLocal>().configureEach {
       doLast {
         logger.lifecycle("Successfully uploaded ${publication.groupId}:${publication.artifactId}:${publication.version} to MavenLocal.")
+      }
+    }
+    register<Detekt>("detektAll") {
+      parallel = true
+      ignoreFailures = false
+      autoCorrect = false
+      buildUponDefaultConfig = true
+      basePath = projectDir.toString()
+      setSource(subprojects.map { it.the<SourceSetContainer>()["main"].allSource.srcDirs })
+      include("**/*.kt")
+      include("**/*.kts")
+      exclude("**/resources/**")
+      exclude("**/build/**")
+      config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+      baseline.set(File("$rootDir/config/baseline.xml"))
+    }
+    withType<Detekt>().configureEach {
+      reports {
+        xml.required.set(true)
       }
     }
   }
@@ -137,27 +162,6 @@ subprojects {
           username = nexusUsername
           password = nexusPassword
         }
-      }
-    }
-  }
-  tasks {
-    register<Detekt>("detektAll") {
-      parallel = true
-      ignoreFailures = false
-      autoCorrect = false
-      buildUponDefaultConfig = true
-      basePath = projectDir.toString()
-      setSource(subprojects.map { it.the<SourceSetContainer>()["main"].allSource.srcDirs })
-      include("**/*.kt")
-      include("**/*.kts")
-      exclude("**/resources/**")
-      exclude("**/build/**")
-      config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
-      baseline.set(File("$rootDir/config/baseline.xml"))
-    }
-    withType<Detekt>().configureEach {
-      reports {
-        xml.required.set(true)
       }
     }
   }
