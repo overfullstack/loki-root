@@ -13,7 +13,7 @@ plugins {
 
 allprojects {
   group = "com.salesforce.ccspayments"
-  version = "0.2.2-SNAPSHOT"
+  version = "0.2.2"
   apply(plugin = "com.diffplug.spotless")
   spotless {
     kotlin {
@@ -25,7 +25,9 @@ allprojects {
     }
     kotlinGradle {
       target("*.gradle.kts")
-      ktlint().userData(mapOf("indent_size" to "2", "continuation_indent_size" to "2"))
+      ktlint()
+        .setUseExperimental(true)
+        .editorConfigOverride(mapOf("indent_size" to "2", "continuation_indent_size" to "2"))
     }
     java {
       target("src/main/java/**/*.java", "src/test/java/**/*.java")

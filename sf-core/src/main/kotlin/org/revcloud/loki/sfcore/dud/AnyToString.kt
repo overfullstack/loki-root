@@ -2,8 +2,9 @@
 
 package org.revcloud.loki.sfcore.dud
 
-import org.apache.commons.lang3.RandomStringUtils
+import org.revcloud.loki.sfcore.dud.Utils.randomForPrimitiveType
 
 private val anyToStringCache = mutableMapOf<Any, String?>()
 
-fun get(key: Any): String? = anyToStringCache.computeIfAbsent(key) { RandomStringUtils.randomAlphabetic(5) }
+fun get(key: Any): String? =
+  anyToStringCache.computeIfAbsent(key) { randomForPrimitiveType(String::class.java) as String? } 

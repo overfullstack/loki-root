@@ -4,14 +4,15 @@ package org.revcloud.loki.sfcore.dud
 
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
-import org.apache.commons.lang3.RandomStringUtils
-import org.mockito.Mockito
+import org.revcloud.loki.sfcore.dud.Utils.randomForPrimitiveType
 
 private val stringToAnyCache: BiMap<String, Any> = HashBiMap.create()
 
-fun <T : Any> getRight(left: String, clazz: Class<out T>): T = stringToAnyCache.computeIfAbsent(left) { Mockito.mock(clazz) } as T
+fun <T : Any> getRight(left: String, type: Class<out T>): T =
+  stringToAnyCache.computeIfAbsent(left) { randomForPrimitiveType(type) } as T
 
-fun getLeft(right: Any): String = stringToAnyCache.inverse().computeIfAbsent(right) { RandomStringUtils.random(18, true, true) }
+fun getLeft(right: Any): String =
+  stringToAnyCache.inverse().computeIfAbsent(right) { randomForPrimitiveType(String::class.java) as String }
 
 fun put(left: String, right: Any) {
   stringToAnyCache[left] = right

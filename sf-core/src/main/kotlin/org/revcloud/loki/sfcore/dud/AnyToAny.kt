@@ -2,12 +2,13 @@
 
 package org.revcloud.loki.sfcore.dud
 
-import org.mockito.Mockito
+import org.revcloud.loki.sfcore.dud.Utils.randomForPrimitiveType
 
 private val anyToAnyCache = mutableMapOf<Any, Any?>()
 
-fun <T : Any> get(key: Any, type: Class<T>): T = anyToAnyCache.computeIfAbsent(key) { Mockito.mock(type) } as T
+fun <T : Any> get(key: Any, valueType: Class<T>): T =
+  anyToAnyCache.computeIfAbsent(key) { randomForPrimitiveType(valueType) } as T
 
 fun put(key: Any, value: Any) {
-    anyToAnyCache[key] = value
+  anyToAnyCache[key] = value
 }
