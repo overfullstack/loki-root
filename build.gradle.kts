@@ -8,12 +8,12 @@ plugins {
   `maven-publish`
   id("io.gitlab.arturbosch.detekt") version "1.20.0"
   id("com.adarshr.test-logger") version "3.2.0"
-  id("com.diffplug.spotless") version "6.7.2"
+  id("com.diffplug.spotless") version "6.11.0"
 }
 
 allprojects {
   group = "com.salesforce.ccspayments"
-  version = "0.2.2"
+  version = "0.2.3-SNAPSHOT"
   apply(plugin = "com.diffplug.spotless")
   spotless {
     kotlin {
@@ -67,13 +67,14 @@ subprojects {
     implementation(platform("org.springframework:spring-framework-bom:5.3.13"))
     implementation("org.springframework:spring-context")
     implementation("org.springframework:spring-test")
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    implementation("org.jetbrains:annotations:22.0.0")
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    implementation("org.jetbrains:annotations:23.0.0")
     val testImplementation by configurations
-    testImplementation(platform("org.junit:junit-bom:5.8.2"))
+    testImplementation(platform("org.junit:junit-bom:5.9.0"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    val kotestVersion = "5.3.0"
+    testImplementation("org.assertj:assertj-core:3.23.1")
+    val kotestVersion = "5.5.0"
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
   }
