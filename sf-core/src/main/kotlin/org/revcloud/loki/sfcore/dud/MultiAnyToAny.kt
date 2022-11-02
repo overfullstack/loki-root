@@ -3,7 +3,7 @@
 package org.revcloud.loki.sfcore.dud
 
 import org.mockito.Mockito
-import org.revcloud.loki.sfcore.dud.Utils.randomForPrimitiveType
+import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
 
 private val pairOfAnyToAnyCache = mutableMapOf<Pair<Any, Any>, Any?>()
 

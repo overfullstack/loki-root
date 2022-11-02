@@ -2,7 +2,7 @@
 
 package org.revcloud.loki.sfcore.dud
 
-import org.revcloud.loki.sfcore.dud.Utils.randomForPrimitiveType
+import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
 
 private val anyToStringCache = mutableMapOf<Any, String?>()
 

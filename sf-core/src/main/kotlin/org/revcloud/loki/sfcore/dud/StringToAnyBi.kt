@@ -4,7 +4,7 @@ package org.revcloud.loki.sfcore.dud
 
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
-import org.revcloud.loki.sfcore.dud.Utils.randomForPrimitiveType
+import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
 
 private val stringToAnyCache: BiMap<String, Any> = HashBiMap.create()
 
