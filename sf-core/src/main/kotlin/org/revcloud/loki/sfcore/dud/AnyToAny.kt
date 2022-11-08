@@ -4,11 +4,14 @@ package org.revcloud.loki.sfcore.dud
 
 import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
 
-private val anyToAnyCache = mutableMapOf<Any, Any?>()
+object AnyToAny {
 
-fun <T : Any> get(key: Any, valueType: Class<T>): T =
-  anyToAnyCache.computeIfAbsent(key) { randomForPrimitiveType(valueType) } as T
+  private val anyToAnyCache = mutableMapOf<Any, Any?>()
 
-fun put(key: Any, value: Any) {
-  anyToAnyCache[key] = value
+  fun <T : Any> get(key: Any, valueType: Class<T>): T =
+    anyToAnyCache.computeIfAbsent(key) { randomForPrimitiveType(valueType) } as T
+
+  fun put(key: Any, value: Any) {
+    anyToAnyCache[key] = value
+  }
 }
