@@ -13,7 +13,7 @@ plugins {
 
 allprojects {
   group = "com.salesforce.ccspayments"
-  version = "0.2.3"
+  version = "0.2.4"
   apply(plugin = "com.diffplug.spotless")
   spotless {
     kotlin {

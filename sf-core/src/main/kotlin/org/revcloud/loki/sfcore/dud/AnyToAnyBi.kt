@@ -9,12 +9,15 @@ import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
 object AnyToAnyBi {
   private val anyToAnyBiCache: BiMap<Any, Any> = HashBiMap.create()
 
+  @JvmStatic
   fun <T : Any> getRight(left: Any, type: Class<out T>): T =
     anyToAnyBiCache.computeIfAbsent(left) { randomForPrimitiveType(type) } as T
 
+  @JvmStatic
   fun <T : Any> getLeft(right: Any, type: Class<out T>): T =
     anyToAnyBiCache.inverse().computeIfAbsent(right) { randomForPrimitiveType(type) as String } as T
 
+  @JvmStatic
   fun put(left: Any, right: Any) {
     anyToAnyBiCache[left] = right
   }

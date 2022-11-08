@@ -18,4 +18,5 @@ class UtilsTest {
           Utils.INSTANCE.randomForPrimitiveType(Boolean.class);
         });
   }
+  
 }
