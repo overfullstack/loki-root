@@ -1,6 +1,34 @@
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+  alias(libs.plugins.moshix)
+}
+val nexusUsername: String by lazy {
+  System.getenv("NEXUS_USERNAME") ?: providers.gradleProperty("nexusUsername").get()
+}
+val nexusPassword: String by lazy {
+  System.getenv("NEXUS_PASSWORD") ?: providers.gradleProperty("nexusPassword").get()
+}
+val nexusBaseUrl: String by lazy {
+  System.getenv("NEXUS_BASE_URL") ?: "https://nexus-proxy-prd.soma.salesforce.com/nexus/content"
+}
+
+repositories {
+  mavenCentral()
+  gradlePluginPortal()
+  maven {
+    name = "NexusPublic"
+    url = uri("$nexusBaseUrl/groups/public")
+    credentials {
+      username = nexusUsername
+      password = nexusPassword
+    }
+  }
+}
 dependencies {
   implementation("com.force.api:swag:0.4.13")
-  implementation("org.mockito:mockito-core:4.8.1")
-  implementation("com.google.guava:guava:31.1-jre")
-  implementation("org.apache.commons:commons-lang3:3.12.0")
+  implementation(libs.apache.commons.lang3)
+  implementation(libs.guava)
+  api(libs.mockito.core)
+  api(libs.moshix.adapters)
+  testImplementation(libs.bundles.kotest)
 }
