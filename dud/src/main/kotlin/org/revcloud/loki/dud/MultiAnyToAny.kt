@@ -1,9 +1,9 @@
 @file:JvmName("MultiAnyToAny")
 
-package org.revcloud.loki.sfcore.dud
+package org.revcloud.loki.dud
 
 import org.mockito.Mockito
-import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
+import org.revcloud.loki.Utils.randomForPrimitiveType
 
 object MultiAnyToAny {
   private val pairOfAnyToAnyCache = mutableMapOf<Pair<Any, Any>, Any?>()

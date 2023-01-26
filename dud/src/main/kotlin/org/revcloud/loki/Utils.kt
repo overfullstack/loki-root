@@ -1,4 +1,4 @@
-package org.revcloud.loki.sfcore
+package org.revcloud.loki
 
 import org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import org.apache.commons.lang3.RandomStringUtils.randomNumeric

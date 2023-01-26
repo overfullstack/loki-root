@@ -1,4 +1,4 @@
-package org.revcloud.loki.sfcore.dud;
+package org.revcloud.loki.dud;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 

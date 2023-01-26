@@ -34,3 +34,4 @@ dependencyResolutionManagement {
 rootProject.name = "loki-root"
 include("sf-core")
 include("common")
+include("dud")

@@ -1,10 +1,10 @@
 @file:JvmName("AnyToAnyBi")
 
-package org.revcloud.loki.sfcore.dud
+package org.revcloud.loki.dud
 
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
-import org.revcloud.loki.sfcore.Utils.randomForPrimitiveType
+import org.revcloud.loki.Utils.randomForPrimitiveType
 
 object AnyToAnyBi {
   private val anyToAnyBiCache: BiMap<Any, Any> = HashBiMap.create()

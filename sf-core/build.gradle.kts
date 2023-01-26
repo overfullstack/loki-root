@@ -26,9 +26,5 @@ repositories {
 }
 dependencies {
   implementation("com.force.api:swag:0.4.13")
-  implementation(libs.apache.commons.lang3)
-  implementation(libs.guava)
-  api(libs.mockito.core)
   api(libs.moshix.adapters)
-  testImplementation(libs.bundles.kotest)
 }
