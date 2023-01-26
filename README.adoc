@@ -1,0 +1,6 @@
+= Loki Companion
+Gopal S Akshintala <gopala.akshintala@salesforce.com>
+
+Read this link:https://salesforce.quip.com/10xMAmYuQKG1[LRP] for comprehensive understanding of Loki and Loki-Dud.
+
+Usage guide coming soon...

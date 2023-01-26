@@ -11,7 +11,7 @@ plugins {
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
 }
-version = "0.2.5-SNAPSHOT"
+version = "0.2.5"
 group = "com.salesforce.ccspayments"
 description = "Loki companion"
 repositories {

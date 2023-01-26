@@ -1,24 +1,31 @@
-@file:JvmName("MultiAnyToAny")
-
 package org.revcloud.loki.dud
 
+import com.google.common.collect.HashBasedTable
 import org.mockito.Mockito
+import org.revcloud.loki.Utils.computeIfAbsent
 import org.revcloud.loki.Utils.randomForPrimitiveType
 
 object MultiAnyToAny {
-  private val pairOfAnyToAnyCache = mutableMapOf<Pair<Any, Any>, Any?>()
+  private val table = HashBasedTable.create<Any, Any, Any?>()
 
-  // ! FIXME gopala.akshintala 05/06/22: Think about primitive types
   @JvmStatic
   fun <T : Any> get(key1: Any, key2: Any, valueType: Class<T>): T =
-    pairOfAnyToAnyCache.computeIfAbsent(Pair(key1, key2)) { randomForPrimitiveType(valueType) } as T
+    table.computeIfAbsent(key1, key2) { _, _ -> randomForPrimitiveType(valueType) } as T
 
   @JvmStatic
   fun get(key1: Any, key2: Any): Any? =
-    pairOfAnyToAnyCache.computeIfAbsent(Pair(key1, key2)) { Mockito.mock(Any::class.java) }
+    table.computeIfAbsent(key1, key2) { _, _ -> Mockito.mock(Any::class.java) }
 
   @JvmStatic
-  fun put(key1: Any, key2: Any, value: Any?) {
-    pairOfAnyToAnyCache[Pair(key1, key2)] = value
+  fun put(key1: Any, key2: Any, value: Any) {
+    table.put(key1, key2, value)
+  }
+
+  @JvmStatic
+  fun <K : Any, P : Any, V : Any?> getRows(): MutableMap<K, MutableMap<P, V>> =
+    table.rowMap() as MutableMap<K, MutableMap<P, V>>
+
+  fun clear() {
+    table.clear()
   }
 }

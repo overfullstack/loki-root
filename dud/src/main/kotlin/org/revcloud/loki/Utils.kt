@@ -1,8 +1,10 @@
 package org.revcloud.loki
 
+import com.google.common.collect.HashBasedTable
 import org.apache.commons.lang3.RandomStringUtils.randomAlphabetic
 import org.apache.commons.lang3.RandomStringUtils.randomNumeric
 import org.mockito.Mockito
+import java.util.function.BiFunction
 
 object Utils {
   // ! TODO 06/11/22 gopala.akshintala: Make the length as input parameter, probably through a config 
@@ -17,4 +19,19 @@ object Utils {
     Boolean::class.javaObjectType -> true
     else -> Mockito.mock(type)
   }
+  
+  fun <R : Any, C : Any, V : Any> HashBasedTable<R, C, V>.computeIfAbsent(
+    rowKey: R,
+    colKey: C,
+    mappingFunction: BiFunction<in R, in C, out V?>
+  ): V? =
+    if (!contains(rowKey, colKey)) {
+      val newValue = mappingFunction.apply(rowKey, colKey)
+      if (newValue != null) {
+        put(rowKey, colKey, newValue)
+      }
+      newValue
+    } else {
+      get(rowKey, colKey)
+    }
 }
