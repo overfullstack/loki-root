@@ -1,9 +1,9 @@
-package org.revcloud.loki.dud;
+package org.revcloud.loki;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
-import org.revcloud.loki.sfcore.Utils;
+import org.revcloud.loki.Utils;
 
 class UtilsTest {
   @Test

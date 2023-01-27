@@ -17,8 +17,8 @@ object MultiAnyToAny {
     table.computeIfAbsent(key1, key2) { _, _ -> Mockito.mock(Any::class.java) }
 
   @JvmStatic
-  fun put(key1: Any, key2: Any, value: Any) {
-    table.put(key1, key2, value)
+  fun put(key1: Any, key2: Any, value: Any?) {
+    value?.let { table.put(key1, key2, value) }
   }
 
   @JvmStatic
