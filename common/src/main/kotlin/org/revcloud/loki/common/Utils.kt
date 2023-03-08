@@ -3,12 +3,22 @@
 package org.revcloud.loki.common
 
 import com.squareup.moshi.Moshi
+import org.revcloud.loki.common.factory.IgnoreUnknownFactory
 import java.io.File
 
-fun <POJOT> jsonToPOJO(pojoClass: Class<POJOT>, jsonFilePath: String, vararg adapters: Any): POJOT? {
+@JvmOverloads
+fun <POJOT> jsonToPOJO(
+  pojoClass: Class<POJOT>,
+  jsonFilePath: String,
+  vararg customAdapters: Any,
+  typesToIgnore: Set<Class<out Any>>? = emptySet()
+): POJOT? {
   val moshiBuilder = Moshi.Builder()
-  for (adapter in adapters) {
+  for (adapter in customAdapters) {
     moshiBuilder.add(adapter)
+  }
+  if (!typesToIgnore.isNullOrEmpty()) {
+    moshiBuilder.add(IgnoreUnknownFactory(typesToIgnore))
   }
   val moshi = moshiBuilder.build()
   val adapter = moshi.adapter(pojoClass)

@@ -26,5 +26,6 @@ repositories {
 }
 dependencies {
   implementation("com.force.api:swag:0.4.13")
+  implementation(project(":common"))
   api(libs.moshix.adapters)
 }

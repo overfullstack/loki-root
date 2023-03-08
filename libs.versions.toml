@@ -6,28 +6,26 @@ kotlin-vavr = "0.10.2"
 jetbrains-annotations = "23.0.0"
 kover = "0.6.1"
 kotlin = "1.7.20"
-detekt = "1.22.0-RC2"
 kotest = "5.5.2"
-spotless = "6.11.0"
 spotbugs = "5.0.13"
 testLogger = "3.2.0"
 assertj-core = "3.23.1"
-assertj-vavr = "0.4.2"
-slf4j-api = "2.0.3"
-log4j-slf4j18-impl = "2.18.0"
 reflection-util = "2.14.0"
-jupiter = "5.9.1"
 guava = "31.1-jre"
 apache-commons-lang3 = "3.12.0"
 apache-commons-collections4 = "4.4"
-http4k = "4.33.1.0"
+http4k = "4.40.0.0"
 moshix = "1.7.20-Beta-0.18.3"
 immutables = "2.9.2"
 exposed = "0.40.1"
-apache-log4j = "2.19.0"
 postgresql = "42.5.0"
 mockito = "5.0.0"
 spring = "6.0.4"
+# Common dependencies
+junit = "5.9.2"
+detekt = "1.22.0"
+spotless = "6.16.0"
+apache-log4j = "2.20.0"
 
 [libraries]
 hamcrest-core = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest-core" }
@@ -47,11 +45,9 @@ kotest-frameworkEngine = { module = "io.kotest:kotest-framework-engine", version
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 kotest-runnerJUnit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-core" }
-slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api" }
-log4j-slf4j18-impl = { module = "org.apache.logging.log4j:log4j-slf4j18-impl", version.ref = "log4j-slf4j18-impl" }
-junit-bom = { module = "org.junit:junit-bom", version.ref = "jupiter" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jupiter" }
-junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 apache-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "apache-commons-lang3" }
 apache-commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "apache-commons-collections4" }
@@ -67,9 +63,9 @@ immutables-value-annotations = { module = "org.immutables:value-annotations", ve
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
-log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "apache-log4j" }
 log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "apache-log4j" }
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "apache-log4j" }
+log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "apache-log4j" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 spring-core = { module = "org.springframework:spring-core", version.ref = "spring" }
@@ -85,7 +81,7 @@ kotest = [
 ]
 junit = ["junit-jupiter", "junit-engine"]
 exposed = ["exposed-core", "exposed-dao", "exposed-jdbc"]
-apache-log4j = ["log4j-slf4j-impl", "log4j-api", "log4j-core"]
+apache-log4j = ["log4j-api", "log4j-core", "log4j-slf4j2-impl"]
 spring = ["spring-core", "spring-context"]
 
 [plugins]
