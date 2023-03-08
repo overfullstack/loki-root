@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.force.swag.id.ID;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.revcloud.loki.common.Utils;
@@ -15,8 +16,8 @@ class IDAdapterTest {
   @Test
   @DisplayName("stringToSfId")
   void stringToSfId() {
-    final var sfId = Utils.jsonToPOJO(
-        IDHolder.class, TEST_RESOURCES_PATH + "sf-id.json", new IDAdapter());
+    final var sfId = Utils.jsonToPojo(
+        IDHolder.class, TEST_RESOURCES_PATH + "sf-id.json", List.of(new IDAdapter()));
     assertNotNull(sfId);
     assertEquals("01sxx0000005wB3AAI", sfId.id.toString());
   }
