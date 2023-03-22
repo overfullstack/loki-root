@@ -4,4 +4,5 @@ plugins {
 }
 dependencies {
   api(libs.moshix.adapters)
+  testImplementation(libs.assertj.core)
 }

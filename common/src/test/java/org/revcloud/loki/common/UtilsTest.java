@@ -1,5 +1,6 @@
 package org.revcloud.loki.common;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.squareup.moshi.FromJson;
@@ -15,11 +16,19 @@ class UtilsTest {
   @Test
   @DisplayName("json To Pojo")
   void jsonToPojo() {
-    final var nestedBeanFromJson =
-        Utils.jsonToPOJO(NestedBean.class, TEST_RESOURCES_PATH + "nested-bean.json");
-    assertNotNull(nestedBeanFromJson);
-    Assertions.assertEquals("container", nestedBeanFromJson.getName());
-    Assertions.assertEquals(2, nestedBeanFromJson.getBean().getItems().size());
+    final var nestedBeanFromJson = Utils.<NestedBean>jsonToPojo(NestedBean.class, TEST_RESOURCES_PATH + "nested-bean.json");
+    assertThat(nestedBeanFromJson).isNotNull();
+    assertThat(nestedBeanFromJson.getName()).isEqualTo("container");
+    assertThat(nestedBeanFromJson.getBean().getItems()).hasSize(2);
+  }
+
+  @Test
+  @DisplayName("pojo to json")
+  void pojoToJson() {
+    final var nestedBean = new NestedBean("container", new Bean("bean", List.of("item1", "item2")));
+    final var nestedBeanJson = Utils.pojoToJson(NestedBean.class, nestedBean);
+    System.out.println(nestedBeanJson);
+    assertThat(nestedBeanJson).isNotBlank();
   }
   
   private static class Bean {
