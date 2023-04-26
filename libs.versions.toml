@@ -22,7 +22,7 @@ postgresql = "42.6.0"
 mockito = "5.3.1"
 spring = "6.0.8"
 # Common dependencies
-junit = "5.9.2"
+junit = "5.9.3"
 detekt = "1.22.0"
 spotless = "6.18.0"
 apache-log4j = "2.20.0"
