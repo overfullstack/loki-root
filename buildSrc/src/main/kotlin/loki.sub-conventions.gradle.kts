@@ -1,6 +1,7 @@
 plugins {
   application
   `maven-publish`
+  id("org.jetbrains.kotlinx.kover")
 }
 java {
   toolchain {
@@ -10,7 +11,7 @@ java {
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
-      useJUnitJupiter("5.9.2")
+      useJUnitJupiter("5.9.3")
     }
   }
 }

@@ -1,13 +1,10 @@
 import com.adarshr.gradle.testlogger.theme.ThemeType
 import com.diffplug.spotless.extra.wtp.EclipseWtpFormatterStep.XML
-import kotlinx.kover.api.DefaultJacocoEngine
-import kotlinx.kover.api.KoverTaskExtension
 
 plugins {
   java
   idea
   id("com.diffplug.spotless")
-  id("org.jetbrains.kotlinx.kover")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
 }
@@ -16,16 +13,6 @@ group = "com.salesforce.ccspayments"
 description = "Loki companion"
 repositories {
   mavenCentral()
-}
-kover {
-  isDisabled.set(false)
-  engine.set(DefaultJacocoEngine)
-}
-koverMerged {
-  enable()
-  xmlReport {
-    onCheck.set(true)
-  }
 }
 spotless {
   kotlin {
@@ -71,10 +58,5 @@ detekt {
   config = files("$rootDir/detekt/detekt.yml")
 }
 tasks {
-  test {
-    extensions.configure(KoverTaskExtension::class) {
-      isEnabled = true
-    }
-  }
   testlogger.theme = ThemeType.MOCHA
 }

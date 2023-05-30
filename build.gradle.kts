@@ -5,12 +5,25 @@ import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   java
+  id(libs.plugins.kover.pluginId)
   id(libs.plugins.detekt.pluginId) apply false
 }
 allprojects {
   apply(plugin = "loki.root-conventions")
   repositories {
     mavenCentral()
+  }
+}
+dependencies {
+  kover(project(":dud"))
+  kover(project(":sf-core"))
+  kover(project(":common"))
+}
+koverReport {
+  defaults {
+    xml {
+      onCheck = true
+    }
   }
 }
 val detektReportMerge by tasks.registering(ReportMergeTask::class) {
@@ -21,7 +34,8 @@ subprojects {
   apply(plugin = "loki.kt-conventions")
   tasks.withType<Detekt>().configureEach {
     reports {
-      html.required by true
+      xml.required = true
+      html.required = true
     }
   }
   plugins.withType<DetektPlugin> {
