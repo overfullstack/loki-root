@@ -9,7 +9,7 @@ import java.io.File
 import java.lang.reflect.Type
 
 @JvmOverloads
-fun <PojoT: Any> jsonToPojo(
+fun <PojoT: Any> jsonFileToPojo(
   pojoType: Type,
   jsonFilePath: String,
   customAdapters: List<Any> = emptyList(),
@@ -17,6 +17,17 @@ fun <PojoT: Any> jsonToPojo(
 ): PojoT? {
   val jsonAdapter = initMoshiJsonAdapter<PojoT>(customAdapters, typesToIgnore, pojoType)
   return runCatching { jsonAdapter.fromJson(readFileToString(jsonFilePath)) }.getOrNull()
+}
+
+@JvmOverloads
+fun <PojoT: Any> jsonToPojo(
+  pojoType: Type,
+  jsonStr: String,
+  customAdapters: List<Any> = emptyList(),
+  typesToIgnore: Set<Class<out Any>>? = emptySet()
+): PojoT? {
+  val jsonAdapter = initMoshiJsonAdapter<PojoT>(customAdapters, typesToIgnore, pojoType)
+  return runCatching { jsonAdapter.fromJson(jsonStr) }.getOrNull()
 }
 
 @JvmOverloads

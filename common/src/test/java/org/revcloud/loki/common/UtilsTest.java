@@ -3,10 +3,8 @@ package org.revcloud.loki.common;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.squareup.moshi.FromJson;
-import com.squareup.moshi.ToJson;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +14,7 @@ class UtilsTest {
   @Test
   @DisplayName("json To Pojo")
   void jsonToPojo() {
-    final var nestedBeanFromJson = Utils.<NestedBean>jsonToPojo(NestedBean.class, TEST_RESOURCES_PATH + "nested-bean.json");
+    final var nestedBeanFromJson = Utils.<NestedBean>jsonFileToPojo(NestedBean.class, TEST_RESOURCES_PATH + "nested-bean.json");
     assertThat(nestedBeanFromJson).isNotNull();
     assertThat(nestedBeanFromJson.getName()).isEqualTo("container");
     assertThat(nestedBeanFromJson.getBean().getItems()).hasSize(2);

@@ -8,7 +8,7 @@ plugins {
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
 }
-version = "0.3.0"
+version = "0.3.1"
 group = "com.salesforce.ccspayments"
 description = "Loki companion"
 repositories {

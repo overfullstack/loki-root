@@ -16,7 +16,7 @@ class IDAdapterTest {
   @Test
   @DisplayName("stringToSfId")
   void stringToSfId() {
-    final var sfId = Utils.jsonToPojo(
+    final var sfId = Utils.jsonFileToPojo(
         IDHolder.class, TEST_RESOURCES_PATH + "sf-id.json", List.of(new IDAdapter()));
     assertNotNull(sfId);
     assertEquals("01sxx0000005wB3AAI", sfId.id.toString());
