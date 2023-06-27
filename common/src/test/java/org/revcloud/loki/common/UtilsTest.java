@@ -1,10 +1,8 @@
 package org.revcloud.loki.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +12,9 @@ class UtilsTest {
   @Test
   @DisplayName("json To Pojo")
   void jsonToPojo() {
-    final var nestedBeanFromJson = Utils.<NestedBean>jsonFileToPojo(NestedBean.class, TEST_RESOURCES_PATH + "nested-bean.json");
+    final var nestedBeanFromJson =
+        Utils.<NestedBean>jsonFileToPojo(
+            NestedBean.class, TEST_RESOURCES_PATH + "nested-bean.json");
     assertThat(nestedBeanFromJson).isNotNull();
     assertThat(nestedBeanFromJson.getName()).isEqualTo("container");
     assertThat(nestedBeanFromJson.getBean().getItems()).hasSize(2);
@@ -28,7 +28,7 @@ class UtilsTest {
     System.out.println(nestedBeanJson);
     assertThat(nestedBeanJson).isNotBlank();
   }
-  
+
   private static class Bean {
     private final String name;
     private final List<String> items;
@@ -46,7 +46,7 @@ class UtilsTest {
       return items;
     }
   }
-  
+
   private static class NestedBean {
     private final String name;
     private final Bean bean;
@@ -64,5 +64,4 @@ class UtilsTest {
       return bean;
     }
   }
-
 }

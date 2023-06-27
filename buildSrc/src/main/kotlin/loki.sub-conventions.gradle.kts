@@ -4,6 +4,7 @@ plugins {
   id("org.jetbrains.kotlinx.kover")
 }
 java {
+  withSourcesJar()
   toolchain {
     languageVersion.set(JavaLanguageVersion.of(11))
   }

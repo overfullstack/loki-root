@@ -16,8 +16,9 @@ class IDAdapterTest {
   @Test
   @DisplayName("stringToSfId")
   void stringToSfId() {
-    final var sfId = Utils.jsonFileToPojo(
-        IDHolder.class, TEST_RESOURCES_PATH + "sf-id.json", List.of(new IDAdapter()));
+    final var sfId =
+        Utils.<IDHolder>jsonFileToPojo(
+            IDHolder.class, TEST_RESOURCES_PATH + "sf-id.json", List.of(new IDAdapter()));
     assertNotNull(sfId);
     assertEquals("01sxx0000005wB3AAI", sfId.id.toString());
   }
@@ -25,7 +26,8 @@ class IDAdapterTest {
   private static class IDHolder {
     private final ID id;
 
-    private IDHolder(ID id) {this.id = id;}
-    
+    private IDHolder(ID id) {
+      this.id = id;
+    }
   }
 }

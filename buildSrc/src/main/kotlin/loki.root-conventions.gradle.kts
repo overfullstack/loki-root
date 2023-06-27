@@ -8,8 +8,8 @@ plugins {
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
 }
-version = "0.3.1"
-group = "com.salesforce.ccspayments"
+version = VERSION
+group = GROUP_ID
 description = "Loki companion"
 repositories {
   mavenCentral()

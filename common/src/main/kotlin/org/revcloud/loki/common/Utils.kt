@@ -16,7 +16,7 @@ fun <PojoT: Any> jsonFileToPojo(
   typesToIgnore: Set<Class<out Any>>? = emptySet()
 ): PojoT? {
   val jsonAdapter = initMoshiJsonAdapter<PojoT>(customAdapters, typesToIgnore, pojoType)
-  return runCatching { jsonAdapter.fromJson(readFileToString(jsonFilePath)) }.getOrNull()
+  return jsonAdapter.fromJson(readFileToString(jsonFilePath))
 }
 
 @JvmOverloads
@@ -27,7 +27,7 @@ fun <PojoT: Any> jsonToPojo(
   typesToIgnore: Set<Class<out Any>>? = emptySet()
 ): PojoT? {
   val jsonAdapter = initMoshiJsonAdapter<PojoT>(customAdapters, typesToIgnore, pojoType)
-  return runCatching { jsonAdapter.fromJson(jsonStr) }.getOrNull()
+  return jsonAdapter.fromJson(jsonStr)
 }
 
 @JvmOverloads
@@ -38,7 +38,7 @@ fun <PojoT: Any> pojoToJson(
   typesToIgnore: Set<Class<out Any>>? = emptySet()
 ): String? {
   val jsonAdapter = initMoshiJsonAdapter<PojoT>(customAdapters, typesToIgnore, pojoType)
-  return runCatching { jsonAdapter.indent("  ").toJson(pojo) }.getOrNull()
+  return jsonAdapter.indent("  ").toJson(pojo)
 }
 
 private fun <PojoT: Any> initMoshiJsonAdapter(
