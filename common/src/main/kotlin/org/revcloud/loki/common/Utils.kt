@@ -4,12 +4,12 @@ package org.revcloud.loki.common
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import org.revcloud.loki.common.factory.IgnoreUnknownFactory
 import java.io.File
 import java.lang.reflect.Type
+import org.revcloud.loki.common.factory.IgnoreUnknownFactory
 
 @JvmOverloads
-fun <PojoT: Any> jsonFileToPojo(
+fun <PojoT : Any> jsonFileToPojo(
   pojoType: Type,
   jsonFilePath: String,
   customAdapters: List<Any> = emptyList(),
@@ -20,7 +20,7 @@ fun <PojoT: Any> jsonFileToPojo(
 }
 
 @JvmOverloads
-fun <PojoT: Any> jsonToPojo(
+fun <PojoT : Any> jsonToPojo(
   pojoType: Type,
   jsonStr: String,
   customAdapters: List<Any> = emptyList(),
@@ -31,7 +31,7 @@ fun <PojoT: Any> jsonToPojo(
 }
 
 @JvmOverloads
-fun <PojoT: Any> pojoToJson(
+fun <PojoT : Any> pojoToJson(
   pojoType: Type,
   pojo: PojoT,
   customAdapters: List<Any> = emptyList(),
@@ -41,7 +41,7 @@ fun <PojoT: Any> pojoToJson(
   return jsonAdapter.indent("  ").toJson(pojo)
 }
 
-private fun <PojoT: Any> initMoshiJsonAdapter(
+private fun <PojoT : Any> initMoshiJsonAdapter(
   customAdapters: List<Any>,
   typesToIgnore: Set<Class<out Any>>?,
   pojoType: Type
@@ -55,7 +55,6 @@ private fun <PojoT: Any> initMoshiJsonAdapter(
   }
   return moshiBuilder.build().adapter(pojoType)
 }
-
 
 fun readFileToString(fileRelativePath: String): String {
   return File(fileRelativePath).readText(Charsets.UTF_8)

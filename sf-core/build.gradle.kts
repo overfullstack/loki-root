@@ -1,7 +1,5 @@
-@Suppress("DSL_SCOPE_VIOLATION")
-plugins {
-  alias(libs.plugins.moshix)
-}
+@Suppress("DSL_SCOPE_VIOLATION") plugins { alias(libs.plugins.moshix) }
+
 val nexusUsername: String by lazy {
   System.getenv("NEXUS_USERNAME") ?: providers.gradleProperty("nexusUsername").get()
 }
@@ -24,6 +22,7 @@ repositories {
     }
   }
 }
+
 dependencies {
   implementation("com.force.api:swag:0.5.3")
   implementation(project(":common"))

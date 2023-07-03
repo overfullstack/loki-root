@@ -3,31 +3,35 @@ plugins {
   `maven-publish`
   id("org.jetbrains.kotlinx.kover")
 }
+
 java {
   withSourcesJar()
-  toolchain {
-    languageVersion.set(JavaLanguageVersion.of(11))
-  }
+  toolchain { languageVersion.set(JavaLanguageVersion.of(11)) }
 }
+
 testing {
   suites {
-    val test by getting(JvmTestSuite::class) {
-      useJUnitJupiter("5.9.3")
-    }
+    val test by getting(JvmTestSuite::class) { useJUnitJupiter("5.9.3") }
   }
 }
+
 tasks {
   withType<PublishToMavenRepository>().configureEach {
     doLast {
-      logger.lifecycle("Successfully uploaded ${publication.groupId}:${publication.artifactId}:${publication.version} to ${repository.name}")
+      logger.lifecycle(
+        "Successfully uploaded ${publication.groupId}:${publication.artifactId}:${publication.version} to ${repository.name}"
+      )
     }
   }
   withType<PublishToMavenLocal>().configureEach {
     doLast {
-      logger.lifecycle("Successfully created ${publication.groupId}:${publication.artifactId}:${publication.version} in MavenLocal")
+      logger.lifecycle(
+        "Successfully created ${publication.groupId}:${publication.artifactId}:${publication.version} in MavenLocal"
+      )
     }
   }
 }
+
 publishing {
   publications.create<MavenPublication>("mavenJava") {
     val subprojectJarName = tasks.jar.get().archiveBaseName.get()

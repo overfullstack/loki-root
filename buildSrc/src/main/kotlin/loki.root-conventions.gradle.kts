@@ -8,25 +8,31 @@ plugins {
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
 }
+
 version = VERSION
+
 group = GROUP_ID
+
 description = "Loki companion"
-repositories {
-  mavenCentral()
-}
+
+repositories { mavenCentral() }
+
 spotless {
   kotlin {
-    target("src/main/java/**/*.kt", "src/test/java/**/*.kt")
-    targetExclude("$buildDir/generated/**/*.*")
-    ktlint()
-      .setUseExperimental(true)
-      .editorConfigOverride(mapOf("indent_size" to "2", "continuation_indent_size" to "2"))
+    ktfmt().googleStyle()
+    target("**/*.kt")
+    trimTrailingWhitespace()
+    endWithNewline()
+    targetExclude(
+      "**/Dependencies.kt",
+      "**/build/**",
+    )
   }
   kotlinGradle {
-    target("*.gradle.kts")
-    ktlint()
-      .setUseExperimental(true)
-      .editorConfigOverride(mapOf("indent_size" to "2", "continuation_indent_size" to "2"))
+    ktfmt().googleStyle()
+    target("**/*.gradle.kts")
+    trimTrailingWhitespace()
+    endWithNewline()
   }
   java {
     toggleOffOn()
@@ -51,12 +57,12 @@ spotless {
     endWithNewline()
   }
 }
+
 detekt {
   parallel = true
   buildUponDefaultConfig = true
   baseline = file("$rootDir/detekt/baseline.xml")
   config = files("$rootDir/detekt/detekt.yml")
 }
-tasks {
-  testlogger.theme = ThemeType.MOCHA
-}
+
+tasks { testlogger.theme = ThemeType.MOCHA }

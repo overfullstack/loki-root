@@ -1,9 +1,5 @@
 dependencyResolutionManagement {
-  versionCatalogs {
-    create("libs") {
-      from(files("libs.versions.toml"))
-    }
-  }
+  versionCatalogs { create("libs") { from(files("libs.versions.toml")) } }
 
   val nexusUsername: String by lazy {
     System.getenv("NEXUS_USERNAME") ?: settings.providers.gradleProperty("nexusUsername").get()
@@ -30,6 +26,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "loki-root"
+
 include("sf-core")
+
 include("common")
+
 include("dud")
