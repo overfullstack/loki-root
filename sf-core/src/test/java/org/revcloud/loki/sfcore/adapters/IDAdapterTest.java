@@ -7,7 +7,7 @@ import com.force.swag.id.ID;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.revcloud.loki.common.Utils;
+import org.revcloud.loki.common.json.JsonPojoUtils;
 
 class IDAdapterTest {
 
@@ -17,7 +17,7 @@ class IDAdapterTest {
   @DisplayName("stringToSfId")
   void stringToSfId() {
     final var sfId =
-        Utils.<IDHolder>jsonFileToPojo(
+        JsonPojoUtils.<IDHolder>jsonFileToPojo(
             IDHolder.class, TEST_RESOURCES_PATH + "sf-id.json", List.of(new IDAdapter()));
     assertNotNull(sfId);
     assertEquals("01sxx0000005wB3AAI", sfId.id.toString());
