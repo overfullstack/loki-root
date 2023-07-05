@@ -35,10 +35,11 @@ fun <PojoT : Any> pojoToJson(
   pojoType: Type,
   pojo: PojoT,
   customAdapters: List<Any> = emptyList(),
-  typesToIgnore: Set<Type>? = emptySet()
+  typesToIgnore: Set<Type>? = emptySet(),
+  indent: String? = "  "
 ): String? {
   val jsonAdapter = initMoshiJsonAdapter<PojoT>(customAdapters, typesToIgnore, pojoType)
-  return jsonAdapter.indent("  ").toJson(pojo)
+  return (indent?.let { jsonAdapter.indent(indent) } ?: jsonAdapter).toJson(pojo)
 }
 
 private fun <PojoT : Any> initMoshiJsonAdapter(
