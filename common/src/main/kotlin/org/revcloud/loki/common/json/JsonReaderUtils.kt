@@ -17,23 +17,25 @@ fun skipValue(reader: JsonReader) = reader.skipValue()
 
 fun nextName(reader: JsonReader): String = reader.nextName()
 
-fun <T> obj(mk: () -> T, reader: JsonReader, block: BiConsumer<T, String>): T = with(reader) {
-  beginObject()
-  val item = mk()
-  while (hasNext()) {
-    block.accept(item, nextName())
+fun <T> obj(mk: () -> T, reader: JsonReader, block: BiConsumer<T, String>): T =
+  with(reader) {
+    beginObject()
+    val item = mk()
+    while (hasNext()) {
+      block.accept(item, nextName())
+    }
+    endObject()
+    item
   }
-  endObject()
-  item
-}
 
-fun <T> list(mk: () -> T, reader: JsonReader, block: BiConsumer<T, String>): List<T?>? = reader.skipNullOr {
-  val items = mutableListOf<T?>()
-  beginArray()
-  while (hasNext()) items += obj(mk, this, block)
-  endArray()
-  items
-}
+fun <T> list(mk: () -> T, reader: JsonReader, block: BiConsumer<T, String>): List<T?>? =
+  reader.skipNullOr {
+    val items = mutableListOf<T?>()
+    beginArray()
+    while (hasNext()) items += obj(mk, this, block)
+    endArray()
+    items
+  }
 
 fun anyMap(reader: JsonReader): Map<String, Any?>? =
   reader.skipNullOr {
