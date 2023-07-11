@@ -7,7 +7,15 @@ import java.util.function.BiConsumer
 
 fun nextString(reader: JsonReader): String = reader.nextString()
 
+fun nextBoolean(reader: JsonReader): Boolean = reader.nextBoolean()
+
+fun nextInt(reader: JsonReader): Int = reader.nextInt()
+
+fun nextLong(reader: JsonReader): Long = reader.nextLong()
+
 fun skipValue(reader: JsonReader) = reader.skipValue()
+
+fun nextName(reader: JsonReader): String = reader.nextName()
 
 fun <T> obj(mk: () -> T, reader: JsonReader, block: BiConsumer<T, String>): T = with(reader) {
   beginObject()
