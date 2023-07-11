@@ -4,9 +4,9 @@ package org.revcloud.loki.common.json
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import java.lang.reflect.Type
 import org.revcloud.loki.common.factory.IgnoreUnknownFactory
 import org.revcloud.loki.common.readFileToString
-import java.lang.reflect.Type
 
 @JvmOverloads
 fun <PojoT : Any> jsonFileToPojo(
@@ -49,7 +49,12 @@ private fun <PojoT : Any> initMoshiJsonAdapter(
 ): JsonAdapter<PojoT> {
   val moshiBuilder = Moshi.Builder()
   for (adapter in customAdapters) {
-    moshiBuilder.add(adapter)
+    @SuppressWarnings("kotlin:S3923")
+    if (adapter is JsonAdapter.Factory) {
+      moshiBuilder.add(adapter)
+    } else {
+      moshiBuilder.add(adapter)
+    }
   }
   if (!typesToIgnore.isNullOrEmpty()) {
     moshiBuilder.add(IgnoreUnknownFactory(typesToIgnore))
